@@ -8,7 +8,7 @@
     tools:context=".LoginActivity">
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/loginConfirmButton"
         android:layout_width="0dp"
         android:layout_height="60dp"
         android:layout_marginStart="135dp"
@@ -52,7 +52,7 @@
         android:letterSpacing="0.12"
         android:inputType="textVisiblePassword"
         android:textColor="@color/white"
-        app:layout_constraintBottom_toTopOf="@+id/button"
+        app:layout_constraintBottom_toTopOf="@+id/loginConfirmButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
