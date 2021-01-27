@@ -112,14 +112,21 @@ public class ChatListActivity extends AppCompatActivity {
         listView.setAdapter(arrayAdapter);
 
         // detect list view click
-//        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            // function is called when a list view item is clicked
-//            @Override
-//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//                // the list view items have the same ordering as the ArrayList above
-//                // 'position' is the index of the list view item clicked
-//                Toast.makeText(getApplicationContext(), "NAME : " + names.get(position),Toast.LENGTH_SHORT).show();
-//            }
-//        });
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            // function is called when a list view item is clicked
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                // the list view items have the same ordering as the ArrayList above
+                // 'position' is the index of the list view item clicked
+                String user1 = current_user;
+                String user2 = list.get(position);
+                //Toast.makeText(getApplicationContext(), message_id,Toast.LENGTH_SHORT).show();
+
+                Intent intent = new Intent(ChatListActivity.this, ChatActivity.class);
+                intent.putExtra("user1",user1);
+                intent.putExtra("user2",user2);
+                startActivity(intent);
+            }
+        });
     }
 }
