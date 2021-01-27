@@ -14,7 +14,11 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -80,10 +84,16 @@ public class SignupActivity extends AppCompatActivity {
                         Toast.makeText(SignupActivity.this, "Password must contain both letters and numbers", Toast.LENGTH_SHORT).show();
                     } // register the user
                     else {
+                        String username = email_text.split("@")[0];
+                        FirebaseFirestore db = FirebaseFirestore.getInstance();
+                        Map<String,Object> user_info = new HashMap<>();
+                        user_info.put("Username",username);
+                        db.collection("USER INFO").document(email_text).set(user_info);
+
                         register_user(email_text,password_text);
-                        Intent intent =  new Intent(SignupActivity.this, MainActivity.class);
+
+                        Intent intent = new Intent(SignupActivity.this, MainActivity.class);
                         startActivity(intent);
-                        finish();
                     }
                 }
                 else {
