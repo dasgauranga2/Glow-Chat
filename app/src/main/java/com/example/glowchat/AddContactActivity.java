@@ -25,23 +25,6 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-@IgnoreExtraProperties
-class Contact {
-
-    public String username;
-    public String contactname;
-
-    public Contact() {
-        // Default constructor required for calls to DataSnapshot.getValue(User.class)
-    }
-
-    public Contact(String u, String c) {
-        this.username = u;
-        this.contactname = c;
-    }
-
-}
-
 public class AddContactActivity extends AppCompatActivity {
 
     Button add;
@@ -50,14 +33,14 @@ public class AddContactActivity extends AppCompatActivity {
 
     public void add_contact(View view) {
         String contact_name = contact.getText().toString();
-        String current_user = auth.getCurrentUser().getEmail();
+        String current_user = auth.getCurrentUser().getEmail().split("@")[0];
         Toast.makeText(AddContactActivity.this, current_user, Toast.LENGTH_SHORT).show();
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference ref = database.getReference("CONTACT LIST");
-        Contact c = new Contact(current_user,contact_name);
+        //Contact c = new Contact(current_user,contact_name);
         //ref.setValue(user);
-        ref.push().setValue(c);
+        ref.child(current_user).push().setValue(contact_name);
 
         Intent intent = new Intent(AddContactActivity.this, ChatListActivity.class);
         startActivity(intent);
