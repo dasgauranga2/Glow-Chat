@@ -7,8 +7,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.google.firebase.database.DataSnapshot;
@@ -17,6 +20,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.IgnoreExtraProperties;
+
+import java.util.ArrayList;
 
 @IgnoreExtraProperties
 class Message {
@@ -43,13 +48,23 @@ public class ChatActivity extends AppCompatActivity {
     String user2;
     FirebaseDatabase database;
     DatabaseReference ref;
+    String SEP = "-**-";
+
+    ArrayList<String> chat_messages;
 
     public void add_message(View view) {
 
-        //Contact c = new Contact(current_user,contact_name);
-        //ref.setValue(user);
-        //Message m = new Message(user1,user2,message.getText().toString());
-        ref.child(user1 + "-" + user2).push().setValue(message.getText().toString());
+        ref.child(user1 + "-" + user2).push().setValue(message.getText().toString()+SEP+user1+SEP+user2);
+        ref.child(user2 + "-" + user1).push().setValue(message.getText().toString()+SEP+user1+SEP+user2);
+        message.setText("");
+
+        try {
+            InputMethodManager imm = (InputMethodManager)getSystemService(INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(),0);
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -71,9 +86,12 @@ public class ChatActivity extends AppCompatActivity {
         ref.child(user1 + "-" + user2).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+                chat_messages = new ArrayList<String>();
                 for (DataSnapshot s : snapshot.getChildren()) {
-                    Log.i("MESSAGE_INFO", s.toString());
+                    //Log.i("MESSAGE_INFO", s.getValue().toString());
+                    chat_messages.add(s.getValue().toString());
                 }
+                setup_list();
             }
 
             @Override
@@ -81,19 +99,13 @@ public class ChatActivity extends AppCompatActivity {
 
             }
         });
-        Log.i("MESSAGE_INFO", "TESTING");
-        ref.child(user2 + "-" + user1).addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for (DataSnapshot s : snapshot.getChildren()) {
-                    Log.i("MESSAGE_INFO", s.toString());
-                }
-            }
+    }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
+    public void setup_list() {
+        ListView listView = findViewById(R.id.chatList);
+        //chat_messages = new ArrayList<String>();
+        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1,chat_messages);
+        // link the list view to the array adapter
+        listView.setAdapter(arrayAdapter);
     }
 }
