@@ -2,6 +2,8 @@ package com.example.glowchat;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -23,24 +25,6 @@ import com.google.firebase.firestore.IgnoreExtraProperties;
 
 import java.util.ArrayList;
 
-@IgnoreExtraProperties
-class Message {
-
-    public String u1;
-    public String u2;
-    public String data;
-
-    public Message() {
-        // Default constructor required for calls to DataSnapshot.getValue(User.class)
-    }
-
-    public Message(String u1, String u2, String data) {
-        this.u1 = u1;
-        this.u2 = u2;
-        this.data = data;
-    }
-}
-
 public class ChatActivity extends AppCompatActivity {
 
     EditText message;
@@ -48,16 +32,21 @@ public class ChatActivity extends AppCompatActivity {
     String user2;
     FirebaseDatabase database;
     DatabaseReference ref;
-    String SEP = "-**-";
+    String SEP = "--**--";
+    Intent intent;
 
     ArrayList<String> chat_messages;
 
+    // function to send a message to another user
     public void add_message(View view) {
 
+        // get database reference from Firebase and the data to Firebase
         ref.child(user1 + "-" + user2).push().setValue(message.getText().toString()+SEP+user1+SEP+user2);
         ref.child(user2 + "-" + user1).push().setValue(message.getText().toString()+SEP+user1+SEP+user2);
-        message.setText("");
 
+        // clear the message input box
+        message.setText("");
+        // hide the keyboard
         try {
             InputMethodManager imm = (InputMethodManager)getSystemService(INPUT_METHOD_SERVICE);
             imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(),0);
@@ -72,25 +61,32 @@ public class ChatActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
 
-        //Intent intent = getIntent();
-        Intent intent = getIntent();
+        intent = getIntent();
         message = findViewById(R.id.messageInput);
+        // array list that will contain all the chat messages
+        chat_messages = new ArrayList<String>();
+        // user1 is the current user logged in
         user1 = intent.getStringExtra("user1").split("@")[0];
+        // user2 is the user with whom user1 is currently chatting with
         user2 = intent.getStringExtra("user2").split("@")[0];
 
+        // get the database reference from Firebase
         database = FirebaseDatabase.getInstance();
-        //ref = database.getReference("MESSAGES").child(user1 + "-" + user2);
         ref = database.getReference("MESSAGES");
 
-        Log.i("MESSAGE_INFO", "TESTING");
+        // read data from Firebase
+        // get all chat messages between user1 and user2
         ref.child(user1 + "-" + user2).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                chat_messages = new ArrayList<String>();
+                // clear the array list
+                chat_messages.clear();
+                // we iterate over all chat messages
                 for (DataSnapshot s : snapshot.getChildren()) {
-                    //Log.i("MESSAGE_INFO", s.getValue().toString());
+                    // insert data into the array list
                     chat_messages.add(s.getValue().toString());
                 }
+                // reset the list view
                 setup_list();
             }
 
@@ -101,11 +97,14 @@ public class ChatActivity extends AppCompatActivity {
         });
     }
 
+    // function to setup the list view
     public void setup_list() {
-        ListView listView = findViewById(R.id.chatList);
-        //chat_messages = new ArrayList<String>();
-        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1,chat_messages);
-        // link the list view to the array adapter
-        listView.setAdapter(arrayAdapter);
+//        ListView listView = findViewById(R.id.chatList);
+//        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1,chat_messages);
+//        listView.setAdapter(arrayAdapter);
+        RecyclerView recyclerView = findViewById(R.id.recyclerView);
+        ChatAdapter chatAdapter = new ChatAdapter(this, chat_messages, intent.getStringExtra("user1").split("@")[0]);
+        recyclerView.setAdapter(chatAdapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
 }

@@ -31,17 +31,21 @@ public class AddContactActivity extends AppCompatActivity {
     EditText contact;
     FirebaseAuth auth;
 
+    // function to add a contact
     public void add_contact(View view) {
+        // get the contact name entered by the user
         String contact_name = contact.getText().toString();
+        // get the username of the logged in user
         String current_user = auth.getCurrentUser().getEmail().split("@")[0];
-        Toast.makeText(AddContactActivity.this, current_user, Toast.LENGTH_SHORT).show();
+        //Toast.makeText(AddContactActivity.this, current_user, Toast.LENGTH_SHORT).show();
 
+        // get the database reference from Firebase
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference ref = database.getReference("CONTACT LIST");
-        //Contact c = new Contact(current_user,contact_name);
-        //ref.setValue(user);
+        // add the contact name to Firebase
         ref.child(current_user).push().setValue(contact_name);
 
+        // go back to chat list activity
         Intent intent = new Intent(AddContactActivity.this, ChatListActivity.class);
         startActivity(intent);
         finish();
