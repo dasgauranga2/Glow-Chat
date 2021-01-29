@@ -40,9 +40,13 @@ public class ChatActivity extends AppCompatActivity {
     // function to send a message to another user
     public void add_message(View view) {
 
-        // get database reference from Firebase and the data to Firebase
-        ref.child(user1 + "-" + user2).push().setValue(message.getText().toString()+SEP+user1+SEP+user2);
-        ref.child(user2 + "-" + user1).push().setValue(message.getText().toString()+SEP+user1+SEP+user2);
+        // get the input from the user
+        String user_message = message.getText().toString();
+        if (user_message.length() > 0) {
+            // get database reference from Firebase and the data to Firebase
+            ref.child(user1 + "-" + user2).push().setValue(user_message+SEP+user1+SEP+user2);
+            ref.child(user2 + "-" + user1).push().setValue(user_message+SEP+user1+SEP+user2);
+        }
 
         // clear the message input box
         message.setText("");

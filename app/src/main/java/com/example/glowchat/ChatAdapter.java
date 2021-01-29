@@ -1,6 +1,7 @@
 package com.example.glowchat;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -42,13 +43,18 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.MyViewHolder> 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         String[] full_message = chats.get(position).split(Pattern.quote(SEP));
+        int message_length = full_message[0].length();
 
         if (full_message[2].equals(current_user)) {
             holder.chat1.setText(full_message[0]);
+            holder.chat1.setBackgroundResource(R.drawable.chat_background);
+            holder.chat1.setMaxWidth(550);
             holder.chat2.setText("");
         }
         if (full_message[1].equals(current_user)) {
             holder.chat2.setText(full_message[0]);
+            holder.chat2.setBackgroundResource(R.drawable.chat_background);
+            holder.chat2.setMaxWidth(550);
             holder.chat1.setText("");
         }
     }
