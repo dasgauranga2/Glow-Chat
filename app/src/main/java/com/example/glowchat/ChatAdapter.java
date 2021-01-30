@@ -13,9 +13,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 import java.util.regex.Pattern;
 
-//public class ChatAdapter {
-//}
-
 public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.MyViewHolder> {
 
     ArrayList<String> chats;
