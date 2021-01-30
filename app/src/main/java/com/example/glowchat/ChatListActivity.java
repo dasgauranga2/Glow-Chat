@@ -36,38 +36,15 @@ public class ChatListActivity extends AppCompatActivity {
     FirebaseAuth auth;
     String current_user;
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-
-        MenuInflater menuInflater = getMenuInflater();
-        menuInflater.inflate(R.menu.main_menu,menu);
-
-        return super.onCreateOptionsMenu(menu);
+    public void add_contact(View view) {
+        Intent intent = new Intent(ChatListActivity.this, AddContactActivity.class);
+        startActivity(intent);
     }
 
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        super.onOptionsItemSelected(item);
-
-        Intent intent;
-
-        switch (item.getItemId()) {
-            case R.id.add_contact:
-                intent = new Intent(ChatListActivity.this, AddContactActivity.class);
-                startActivity(intent);
-                return true;
-            case R.id.profile:
-                intent = new Intent(ChatListActivity.this, ProfileActivity.class);
-                intent.putExtra("current_user",current_user);
-                startActivity(intent);
-                return true;
-            default:
-                return false;
-        }
-    }
-
-    public void add_data(String s) {
-        usernames.add(s);
+    public void edit_profile(View view) {
+        Intent intent = new Intent(ChatListActivity.this, ProfileActivity.class);
+        intent.putExtra("current_user",current_user);
+        startActivity(intent);
     }
 
     public void get_username(String em) {
