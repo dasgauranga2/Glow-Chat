@@ -2,6 +2,8 @@ package com.example.glowchat;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -51,7 +53,6 @@ public class ChatListActivity extends AppCompatActivity {
 
         switch (item.getItemId()) {
             case R.id.add_contact:
-                //Toast.makeText(getApplicationContext(),"ADD CONTACT", Toast.LENGTH_SHORT).show();
                 intent = new Intent(ChatListActivity.this, AddContactActivity.class);
                 startActivity(intent);
                 return true;
@@ -79,10 +80,7 @@ public class ChatListActivity extends AppCompatActivity {
         rf.child(em.split("@")[0]).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-
                 usernames.add(snapshot.getValue().toString());
-                //Log.i("CONTACT_INFO", usernames.toString() + " " + emails.toString());
-                //Toast.makeText(ChatListActivity.this, result[0], Toast.LENGTH_SHORT).show();
                 if (usernames.size() == emails.size()) {
                     setup_list();
                 }
@@ -128,26 +126,10 @@ public class ChatListActivity extends AppCompatActivity {
     }
 
     public void setup_list() {
-        ListView listView = findViewById(R.id.listView);
 
-        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1,usernames);
-        // link the list view to the array adapter
-        listView.setAdapter(arrayAdapter);
-
-        // detect list view click
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            // function is called when a list view item is clicked
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                String user1 = current_user;
-                String user2 = emails.get(position);
-                //Toast.makeText(getApplicationContext(), message_id,Toast.LENGTH_SHORT).show();
-
-                Intent intent = new Intent(ChatListActivity.this, ChatActivity.class);
-                intent.putExtra("user1",user1);
-                intent.putExtra("user2",user2);
-                startActivity(intent);
-            }
-        });
+        RecyclerView recyclerView = findViewById(R.id.recyclerView);
+        ChatListAdapter chat_list_adapter = new ChatListAdapter(this, usernames, emails, current_user);
+        recyclerView.setAdapter(chat_list_adapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
 }
