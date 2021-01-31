@@ -2,6 +2,7 @@ package com.example.glowchat;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.regex.Pattern;
 
 public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.MyViewHolder> {
@@ -42,17 +44,24 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.MyViewHolder> 
         String[] full_message = chats.get(position).split(Pattern.quote(SEP));
         int message_length = full_message[0].length();
 
+        Log.i("MESSAGE_INFO", Arrays.toString(full_message));
         if (full_message[2].equals(current_user)) {
+            Log.i("MESSAGE_INFO", "FIRST USER");
+            holder.chat1.setVisibility(View.VISIBLE);
             holder.chat1.setText(full_message[0]);
             holder.chat1.setBackgroundResource(R.drawable.chat_background);
             holder.chat1.setMaxWidth(550);
-            holder.chat2.setText("");
+            holder.chat2.setVisibility(View.GONE);
+//            holder.chat2.setText("");
         }
-        if (full_message[1].equals(current_user)) {
+        else if (full_message[1].equals(current_user)) {
+            Log.i("MESSAGE_INFO", "SECOND USER");
+            holder.chat2.setVisibility(View.VISIBLE);
             holder.chat2.setText(full_message[0]);
             holder.chat2.setBackgroundResource(R.drawable.chat_background);
             holder.chat2.setMaxWidth(550);
-            holder.chat1.setText("");
+            holder.chat1.setVisibility(View.GONE);
+//            holder.chat1.setText("");
         }
     }
 
@@ -72,11 +81,8 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.MyViewHolder> 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
             // Set the text view from the 'row.xml' file in layout folder
-            //lang = itemView.findViewById(R.id.language);
-            //desc = itemView.findViewById(R.id.description);
             chat1 = itemView.findViewById(R.id.chat_text1);
             chat2 = itemView.findViewById(R.id.chat_text2);
-            //main_layout = itemView.findViewById(R.id.row_layout);
         }
     }
 }

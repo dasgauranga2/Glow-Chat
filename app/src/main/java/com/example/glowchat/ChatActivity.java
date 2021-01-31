@@ -24,6 +24,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.IgnoreExtraProperties;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class ChatActivity extends AppCompatActivity {
 
@@ -95,6 +96,7 @@ public class ChatActivity extends AppCompatActivity {
                     chat_messages.add(s.getValue().toString());
                 }
                 // reset the recycler view
+                // Log.i("ALL_MESSAGES", chat_messages.toString());
                 setup_list();
             }
 
@@ -107,6 +109,7 @@ public class ChatActivity extends AppCompatActivity {
 
     // function to setup the recycler view
     public void setup_list() {
+        Log.i("ALL_MESSAGES", chat_messages.toString());
         RecyclerView recyclerView = findViewById(R.id.recyclerView);
         ChatAdapter chatAdapter = new ChatAdapter(this, chat_messages, intent.getStringExtra("user1").split("@")[0]);
         recyclerView.setAdapter(chatAdapter);
