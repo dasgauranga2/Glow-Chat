@@ -36,23 +36,24 @@ public class ChatListActivity extends AppCompatActivity {
     FirebaseAuth auth;
     String current_user;
 
+    // add new contact
     public void add_contact(View view) {
         Intent intent = new Intent(ChatListActivity.this, AddContactActivity.class);
         startActivity(intent);
     }
 
+    // edit the profile
     public void edit_profile(View view) {
         Intent intent = new Intent(ChatListActivity.this, ProfileActivity.class);
         intent.putExtra("current_user",current_user);
         startActivity(intent);
     }
 
+    // get the username of an user given the email
     public void get_username(String em) {
 
         FirebaseDatabase db = FirebaseDatabase.getInstance();
         DatabaseReference rf = db.getReference("USERNAMES");
-        String[] result = new String[1];
-        result[0] = "TESTING";
 
         rf.child(em.split("@")[0]).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -89,7 +90,6 @@ public class ChatListActivity extends AppCompatActivity {
                 for (DataSnapshot s : snapshot.getChildren()) {
                     String contact_email = s.getValue().toString();
                     emails.add(contact_email);
-
                     get_username(contact_email);
                 }
             }
@@ -102,6 +102,7 @@ public class ChatListActivity extends AppCompatActivity {
 
     }
 
+    // setup the recycler view
     public void setup_list() {
 
         RecyclerView recyclerView = findViewById(R.id.recyclerView);

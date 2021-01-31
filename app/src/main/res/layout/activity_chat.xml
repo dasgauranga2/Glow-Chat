@@ -54,6 +54,7 @@
         android:fontFamily="@font/glober"
         android:gravity="center_vertical"
         android:letterSpacing="0.2"
+        android:onClick="view_profile"
         android:paddingLeft="10sp"
         android:text="TextView"
         android:textColor="@android:color/white"

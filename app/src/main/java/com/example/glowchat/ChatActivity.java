@@ -62,6 +62,13 @@ public class ChatActivity extends AppCompatActivity {
         }
     }
 
+    // function to view the profile
+    public void view_profile(View view) {
+        Intent profile_intent = new Intent(ChatActivity.this, ViewProfileActivity.class);
+        profile_intent.putExtra("email", intent.getStringExtra("user2"));
+        startActivity(profile_intent);
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
