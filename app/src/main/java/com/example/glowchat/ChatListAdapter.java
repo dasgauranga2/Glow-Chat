@@ -53,6 +53,7 @@ public class ChatListAdapter extends RecyclerView.Adapter<ChatListAdapter.MyView
                 Intent intent = new Intent(context, ChatActivity.class);
                 intent.putExtra("user1",current_user);
                 intent.putExtra("user2",emails.get(position));
+                intent.putExtra("chatuser_username",usernames.get(position));
                 context.startActivity(intent);
             }
         });

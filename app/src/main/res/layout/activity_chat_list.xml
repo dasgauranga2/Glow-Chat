@@ -36,7 +36,7 @@
             android:paddingLeft="15sp"
             android:text="Glow Chat"
             android:textColor="@android:color/white"
-            android:textSize="30sp" />
+            android:textSize="25sp" />
 
         <ImageButton
             android:id="@+id/addContact"
@@ -54,6 +54,7 @@
             android:layout_weight="1"
             android:background="#6384FA"
             android:onClick="edit_profile"
+            android:scaleType="centerInside"
             app:srcCompat="@drawable/account_pic" />
 
     </LinearLayout>

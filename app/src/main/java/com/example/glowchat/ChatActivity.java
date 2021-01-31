@@ -34,6 +34,7 @@ public class ChatActivity extends AppCompatActivity {
     DatabaseReference ref;
     String SEP = "--**--";
     Intent intent;
+    TextView chatuser;
 
     ArrayList<String> chat_messages;
 
@@ -67,12 +68,15 @@ public class ChatActivity extends AppCompatActivity {
 
         intent = getIntent();
         message = findViewById(R.id.messageInput);
+        chatuser = findViewById(R.id.chatuserText);
         // array list that will contain all the chat messages
         chat_messages = new ArrayList<String>();
         // user1 is the current user logged in
         user1 = intent.getStringExtra("user1").split("@")[0];
         // user2 is the user with whom user1 is currently chatting with
         user2 = intent.getStringExtra("user2").split("@")[0];
+        // chatuser is the username of the user2
+        chatuser.setText(intent.getStringExtra("chatuser_username"));
 
         // get the database reference from Firebase
         database = FirebaseDatabase.getInstance();
@@ -90,7 +94,7 @@ public class ChatActivity extends AppCompatActivity {
                     // insert data into the array list
                     chat_messages.add(s.getValue().toString());
                 }
-                // reset the list view
+                // reset the recycler view
                 setup_list();
             }
 
@@ -101,11 +105,8 @@ public class ChatActivity extends AppCompatActivity {
         });
     }
 
-    // function to setup the list view
+    // function to setup the recycler view
     public void setup_list() {
-//        ListView listView = findViewById(R.id.chatList);
-//        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1,chat_messages);
-//        listView.setAdapter(arrayAdapter);
         RecyclerView recyclerView = findViewById(R.id.recyclerView);
         ChatAdapter chatAdapter = new ChatAdapter(this, chat_messages, intent.getStringExtra("user1").split("@")[0]);
         recyclerView.setAdapter(chatAdapter);
