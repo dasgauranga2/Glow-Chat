@@ -57,5 +57,14 @@
             android:scaleType="centerInside"
             app:srcCompat="@drawable/account_pic" />
 
+        <ImageButton
+            android:id="@+id/editAvatar"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="#6384FA"
+            android:onClick="edit_avatar"
+            app:srcCompat="@drawable/account_pic" />
+
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

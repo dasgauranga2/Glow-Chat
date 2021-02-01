@@ -2,9 +2,12 @@ package com.example.glowchat;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.media.Image;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -19,14 +22,16 @@ public class ChatListAdapter extends RecyclerView.Adapter<ChatListAdapter.MyView
     Context context;
     ArrayList<String> emails;
     ArrayList<String> usernames;
+    ArrayList<Bitmap> avatars;
     String current_user;
 
     // the context and the data is passed to the adapter
-    public ChatListAdapter(Context ct, ArrayList<String> un, ArrayList<String> em, String cu) {
+    public ChatListAdapter(Context ct, ArrayList<String> un, ArrayList<String> em, String cu, ArrayList<Bitmap> av) {
         context = ct;
         emails = em;
         usernames = un;
         current_user = cu;
+        avatars = av;
     }
 
     @NonNull
@@ -44,6 +49,7 @@ public class ChatListAdapter extends RecyclerView.Adapter<ChatListAdapter.MyView
         // use the data passed to the adapter above
         // and set the data to the text view below
         holder.username.setText(usernames.get(position));
+        holder.userimage.setImageBitmap(avatars.get(position));
 
         // detect if an item is clicked using the root layout of the 'chat_list_row.xml' file
         holder.main_layout.setOnClickListener(new View.OnClickListener() {
@@ -67,12 +73,14 @@ public class ChatListAdapter extends RecyclerView.Adapter<ChatListAdapter.MyView
 
     public class MyViewHolder extends RecyclerView.ViewHolder{
         TextView username;
+        ImageView userimage;
         ConstraintLayout main_layout;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
 
             username = itemView.findViewById(R.id.usernameText);
+            userimage = itemView.findViewById(R.id.userImage);
             main_layout = itemView.findViewById(R.id.chat_list_layout);
         }
     }
