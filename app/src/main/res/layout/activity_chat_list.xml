@@ -59,12 +59,16 @@
 
         <ImageButton
             android:id="@+id/editAvatar"
-            android:layout_width="wrap_content"
+            android:layout_width="55dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="#6384FA"
             android:onClick="edit_avatar"
-            app:srcCompat="@drawable/account_pic" />
+            android:paddingLeft="8sp"
+            android:paddingTop="12sp"
+            android:paddingRight="8sp"
+            android:paddingBottom="12sp"
+            android:scaleType="fitXY" />
 
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
