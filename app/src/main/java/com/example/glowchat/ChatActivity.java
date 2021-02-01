@@ -6,6 +6,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -13,6 +15,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -36,6 +39,7 @@ public class ChatActivity extends AppCompatActivity {
     String SEP = "--**--";
     Intent intent;
     TextView chatuser;
+    ImageView chatuser_img;
 
     ArrayList<String> chat_messages;
 
@@ -69,6 +73,27 @@ public class ChatActivity extends AppCompatActivity {
         startActivity(profile_intent);
     }
 
+    // set the avatar of the current user
+    public void get_current_user_avatar(String em) {
+
+        FirebaseDatabase db = FirebaseDatabase.getInstance();
+        DatabaseReference rf = db.getReference("AVATARS");
+
+        rf.child(em.split("@")[0]).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                int resid = getResources().getIdentifier(snapshot.getValue().toString(),"drawable",getPackageName());
+                Bitmap bitmap = BitmapFactory.decodeResource(getResources(), resid);
+                chatuser_img.setImageBitmap(bitmap);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -77,6 +102,7 @@ public class ChatActivity extends AppCompatActivity {
         intent = getIntent();
         message = findViewById(R.id.messageInput);
         chatuser = findViewById(R.id.chatuserText);
+        chatuser_img = findViewById(R.id.chatuserImage);
         // array list that will contain all the chat messages
         chat_messages = new ArrayList<String>();
         // user1 is the current user logged in
@@ -85,6 +111,8 @@ public class ChatActivity extends AppCompatActivity {
         user2 = intent.getStringExtra("user2").split("@")[0];
         // chatuser is the username of the user2
         chatuser.setText(intent.getStringExtra("chatuser_username"));
+        // set the avatar of user2
+        get_current_user_avatar(intent.getStringExtra("user2"));
 
         // get the database reference from Firebase
         database = FirebaseDatabase.getInstance();
@@ -103,7 +131,6 @@ public class ChatActivity extends AppCompatActivity {
                     chat_messages.add(s.getValue().toString());
                 }
                 // reset the recycler view
-                // Log.i("ALL_MESSAGES", chat_messages.toString());
                 setup_list();
             }
 

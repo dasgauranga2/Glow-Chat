@@ -7,6 +7,47 @@
     android:background="#BCC8F6"
     tools:context=".ChatActivity">
 
+    <LinearLayout
+        android:id="@+id/linearLayout3"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="@drawable/gradient3"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/chatuserImage"
+            android:layout_width="15dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@android:color/transparent"
+            android:onClick="view_profile"
+            android:paddingLeft="15sp"
+            android:paddingTop="8sp"
+            android:paddingRight="15sp"
+            android:paddingBottom="8sp"
+            android:scaleType="fitXY"
+            app:srcCompat="@drawable/deadpool" />
+
+        <TextView
+            android:id="@+id/chatuserText"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="3"
+            android:background="@android:color/transparent"
+            android:fontFamily="@font/glober"
+            android:gravity="center_vertical"
+            android:letterSpacing="0.2"
+            android:onClick="view_profile"
+            android:paddingLeft="10sp"
+            android:text="TextView"
+            android:textColor="@android:color/white"
+            android:textSize="24sp" />
+
+    </LinearLayout>
+
     <Button
         android:id="@+id/button"
         android:layout_width="120dp"
@@ -44,23 +85,6 @@
         app:layout_constraintBottom_toTopOf="@+id/messageInput"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/chatuserText" />
-
-    <TextView
-        android:id="@+id/chatuserText"
-        android:layout_width="0dp"
-        android:layout_height="70dp"
-        android:background="@drawable/gradient3"
-        android:fontFamily="@font/glober"
-        android:gravity="center_vertical"
-        android:letterSpacing="0.2"
-        android:onClick="view_profile"
-        android:paddingLeft="10sp"
-        android:text="TextView"
-        android:textColor="@android:color/white"
-        android:textSize="24sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout3" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
