@@ -40,21 +40,30 @@
 
         <ImageButton
             android:id="@+id/addContact"
-            android:layout_width="wrap_content"
+            android:layout_width="50dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="#6384FA"
             android:onClick="add_contact"
+            android:paddingLeft="10sp"
+            android:paddingTop="18sp"
+            android:paddingRight="10sp"
+            android:paddingBottom="18sp"
+            android:scaleType="fitXY"
             app:srcCompat="@drawable/add_pic" />
 
         <ImageButton
             android:id="@+id/editProfile"
-            android:layout_width="wrap_content"
+            android:layout_width="50dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="#6384FA"
             android:onClick="edit_profile"
-            android:scaleType="centerInside"
+            android:paddingLeft="10sp"
+            android:paddingTop="18sp"
+            android:paddingRight="10sp"
+            android:paddingBottom="18sp"
+            android:scaleType="fitXY"
             app:srcCompat="@drawable/account_pic" />
 
         <ImageButton

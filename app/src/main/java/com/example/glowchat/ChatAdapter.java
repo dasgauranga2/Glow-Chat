@@ -52,7 +52,6 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.MyViewHolder> 
             holder.chat1.setBackgroundResource(R.drawable.chat_background);
             holder.chat1.setMaxWidth(550);
             holder.chat2.setVisibility(View.GONE);
-//            holder.chat2.setText("");
         }
         else if (full_message[1].equals(current_user)) {
             Log.i("MESSAGE_INFO", "SECOND USER");
@@ -61,7 +60,6 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.MyViewHolder> 
             holder.chat2.setBackgroundResource(R.drawable.chat_background);
             holder.chat2.setMaxWidth(550);
             holder.chat1.setVisibility(View.GONE);
-//            holder.chat1.setText("");
         }
     }
 

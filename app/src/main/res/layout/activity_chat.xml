@@ -28,8 +28,7 @@
             android:paddingTop="8sp"
             android:paddingRight="15sp"
             android:paddingBottom="8sp"
-            android:scaleType="fitXY"
-            app:srcCompat="@drawable/deadpool" />
+            android:scaleType="fitXY" />
 
         <TextView
             android:id="@+id/chatuserText"
