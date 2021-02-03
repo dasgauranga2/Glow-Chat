@@ -1,6 +1,7 @@
 package com.example.glowchat;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -8,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -18,13 +20,21 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.IgnoreExtraProperties;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -40,8 +50,11 @@ public class ChatActivity extends AppCompatActivity {
     Intent intent;
     TextView chatuser;
     ImageView chatuser_img;
-
     ArrayList<String> chat_messages;
+
+    Uri image_uri;
+    //String download_url;
+    private static final int IMAGE_REQUEST = 2;
 
     // function to send a message to another user
     public void add_message(View view) {
@@ -65,6 +78,62 @@ public class ChatActivity extends AppCompatActivity {
             e.printStackTrace();
         }
     }
+
+    // function to send an image to another user
+    public void add_image(View view) {
+
+        // launch an intent to open the gallery
+        Intent intent = new Intent();
+        intent.setType("image/");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(intent, IMAGE_REQUEST);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        // check if the image was successfully retrieved
+        if (requestCode == IMAGE_REQUEST && resultCode == RESULT_OK) {
+            // get the image data in uri format
+            image_uri = data.getData();
+            // upload the image to Firebase database
+            upload_image();
+        }
+    }
+
+    private void upload_image() {
+
+        if (image_uri !=  null) {
+            // set the database reference
+            // set the directory and file name
+            StorageReference storageReference = FirebaseStorage.getInstance().getReference(user2).child(user1+"_"+System.currentTimeMillis()+".jpg");
+            // upload the uri image
+            storageReference.putFile(image_uri).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
+                    storageReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                        @Override
+                        public void onSuccess(Uri uri) {
+                            // get the download url for the image
+                            //String url = uri.toString();
+                            // set the download url of the image
+                            //download_url = url;
+                            Toast.makeText(ChatActivity.this, "IMAGE SENT SUCCESSFULLY", Toast.LENGTH_SHORT).show();
+                            // download the image
+                            //download_image();
+                        }
+                    });
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    Toast.makeText(ChatActivity.this, "FAILED TO SEND IMAGE", Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
+    }
+
 
     // function to view the profile
     public void view_profile(View view) {

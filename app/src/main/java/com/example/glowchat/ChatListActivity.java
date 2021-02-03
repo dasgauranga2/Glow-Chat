@@ -61,6 +61,13 @@ public class ChatListActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    // view all media received
+    public void view_media(View view) {
+        Intent intent = new Intent(ChatListActivity.this, MediaActivity.class);
+        intent.putExtra("current_user",current_user);
+        startActivity(intent);
+    }
+
     // get the username of an user given the email
     public void get_username(String em) {
 
