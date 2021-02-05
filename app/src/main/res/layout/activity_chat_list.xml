@@ -19,73 +19,18 @@
         android:id="@+id/linearLayout"
         android:layout_width="0dp"
         android:layout_height="80dp"
+        android:background="#A0E147"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <TextView
-            android:id="@+id/logoText"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="6"
-            android:background="#6384FA"
-            android:fontFamily="@font/helvetica"
-            android:gravity="center_vertical"
-            android:letterSpacing="0.15"
-            android:paddingLeft="15sp"
-            android:text="Glow Chat"
-            android:textColor="@android:color/white"
-            android:textSize="25sp" />
-
-        <ImageButton
-            android:id="@+id/mediaButton"
-            android:layout_width="50dp"
-            android:layout_height="match_parent"
-            android:layout_weight="6"
-            android:background="#6384FA"
-            android:onClick="view_media"
-            android:paddingLeft="10sp"
-            android:paddingTop="18sp"
-            android:paddingRight="10sp"
-            android:paddingBottom="18sp"
-            android:scaleType="fitXY"
-            app:srcCompat="@drawable/image" />
-
-        <ImageButton
-            android:id="@+id/addContact"
-            android:layout_width="50dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="#6384FA"
-            android:onClick="add_contact"
-            android:paddingLeft="10sp"
-            android:paddingTop="18sp"
-            android:paddingRight="10sp"
-            android:paddingBottom="18sp"
-            android:scaleType="fitXY"
-            app:srcCompat="@drawable/add_pic" />
-
-        <ImageButton
-            android:id="@+id/editProfile"
-            android:layout_width="50dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="#6384FA"
-            android:onClick="edit_profile"
-            android:paddingLeft="10sp"
-            android:paddingTop="18sp"
-            android:paddingRight="10sp"
-            android:paddingBottom="18sp"
-            android:scaleType="fitXY"
-            app:srcCompat="@drawable/account_pic" />
+        app:layout_constraintTop_toBottomOf="@+id/textView">
 
         <ImageButton
             android:id="@+id/editAvatar"
-            android:layout_width="55dp"
+            android:layout_width="20dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:background="#6384FA"
+            android:background="@android:color/transparent"
             android:onClick="edit_avatar"
             android:paddingLeft="8sp"
             android:paddingTop="12sp"
@@ -93,5 +38,75 @@
             android:paddingBottom="12sp"
             android:scaleType="fitXY" />
 
+        <TextView
+            android:id="@+id/currentuserText"
+            android:layout_width="80dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:fontFamily="@font/menlo"
+            android:gravity="center_vertical"
+            android:paddingLeft="8sp"
+            android:textColor="@android:color/white"
+            android:textSize="20sp" />
+
+        <ImageButton
+            android:id="@+id/mediaButton"
+            android:layout_width="20dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@android:color/transparent"
+            android:onClick="view_media"
+            android:paddingLeft="16sp"
+            android:paddingTop="22sp"
+            android:paddingRight="16sp"
+            android:paddingBottom="22sp"
+            android:scaleType="fitXY"
+            app:srcCompat="@drawable/media" />
+
+        <ImageButton
+            android:id="@+id/addContact"
+            android:layout_width="20dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@android:color/transparent"
+            android:onClick="add_contact"
+            android:paddingLeft="16sp"
+            android:paddingTop="22sp"
+            android:paddingRight="16sp"
+            android:paddingBottom="22sp"
+            android:scaleType="fitXY"
+            app:srcCompat="@drawable/add" />
+
+        <ImageButton
+            android:id="@+id/editProfile"
+            android:layout_width="20dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@android:color/transparent"
+            android:onClick="edit_profile"
+            android:paddingLeft="16sp"
+            android:paddingTop="22sp"
+            android:paddingRight="16sp"
+            android:paddingBottom="22sp"
+            android:scaleType="fitXY"
+            app:srcCompat="@drawable/profile" />
+
     </LinearLayout>
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="0dp"
+        android:layout_height="75dp"
+        android:background="#A0E147"
+        android:fontFamily="@font/menlo_bold"
+        android:gravity="center"
+        android:letterSpacing="0.15"
+        android:paddingTop="20sp"
+        android:text="GLOWCHAT"
+        android:textColor="@android:color/white"
+        android:textSize="40sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

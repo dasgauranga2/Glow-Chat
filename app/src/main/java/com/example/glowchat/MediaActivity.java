@@ -56,7 +56,6 @@ public class MediaActivity extends AppCompatActivity {
                 .addOnSuccessListener(new OnSuccessListener<ListResult>() {
                     @Override
                     public void onSuccess(ListResult listResult) {
-                        Toast.makeText(MediaActivity.this, "SUCCESS", Toast.LENGTH_SHORT).show();
                         images = new ArrayList<Bitmap>();
                         // list of database references
                         // each database reference refers to one image file
@@ -83,7 +82,7 @@ public class MediaActivity extends AppCompatActivity {
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(MediaActivity.this, "FAILURE", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(MediaActivity.this, "MEDIA FAILURE", Toast.LENGTH_SHORT).show();
                     }
                 });
     }

@@ -18,6 +18,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -40,6 +41,7 @@ public class ChatListActivity extends AppCompatActivity {
     FirebaseAuth auth;
     String current_user;
     ImageButton edit_avatar;
+    TextView cut;
 
     // add new contact
     public void add_contact(View view) {
@@ -132,6 +134,25 @@ public class ChatListActivity extends AppCompatActivity {
         });
     }
 
+    // set the username of the current user
+    public void get_current_user_username(String em) {
+
+        FirebaseDatabase db = FirebaseDatabase.getInstance();
+        DatabaseReference rf = db.getReference("USERNAMES");
+
+        rf.child(em.split("@")[0]).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                cut.setText(snapshot.getValue().toString());
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -142,9 +163,11 @@ public class ChatListActivity extends AppCompatActivity {
         emails = new ArrayList<String>();
         usernames = new ArrayList<String>();
         avatars = new ArrayList<Bitmap>();
+        cut = findViewById(R.id.currentuserText);
 
         edit_avatar = findViewById(R.id.editAvatar);
         get_current_user_avatar(current_user);
+        get_current_user_username(current_user);
 
         // read data from Firebase and display the contact list
         FirebaseDatabase database = FirebaseDatabase.getInstance();
