@@ -9,9 +9,22 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="100dp"
+        android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/mediaView" />
+
+    <TextView
+        android:id="@+id/mediaView"
+        android:layout_width="0dp"
+        android:layout_height="80dp"
+        android:background="#A0E147"
+        android:fontFamily="@font/menlo_bold"
+        android:gravity="center"
+        android:text="IMAGES"
+        android:textColor="@android:color/white"
+        android:textSize="35sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

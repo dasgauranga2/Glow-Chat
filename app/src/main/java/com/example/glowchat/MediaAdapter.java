@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -16,11 +17,13 @@ public class MediaAdapter extends RecyclerView.Adapter<MediaAdapter.MyViewHolder
 
     Context context;
     ArrayList<Bitmap> images;
+    ArrayList<String> image_names;
 
     // the context and the data is passed to the adapter
-    public MediaAdapter(Context ct, ArrayList<Bitmap> imgs) {
+    public MediaAdapter(Context ct, ArrayList<Bitmap> imgs, ArrayList<String> img_names) {
         context = ct;
         images = imgs;
+        image_names = img_names;
     }
 
     @NonNull
@@ -36,7 +39,8 @@ public class MediaAdapter extends RecyclerView.Adapter<MediaAdapter.MyViewHolder
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         // use the data passed to the adapter above
-        // and set the data to the text views below
+        // and set the data to the image view below
+        holder.text.setText(image_names.get(position).split("_")[0]);
         holder.image.setImageBitmap(images.get(position));
     }
 
@@ -47,17 +51,15 @@ public class MediaAdapter extends RecyclerView.Adapter<MediaAdapter.MyViewHolder
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder{
-        // Each row will contain two text views
-        // for displaying the data
+        // Each row will contain one image
         ImageView image;
-        // Select the root layout of the 'row.xml' file
-        //ConstraintLayout main_layout;
+        TextView text;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
-            // Set the text view from the 'media_row.xml' file in layout folder
+            // Set the image view from the 'media_row.xml' file in layout folder
             image = itemView.findViewById(R.id.mediaImage);
-            //main_layout = itemView.findViewById(R.id.row_layout);
+            text = itemView.findViewById(R.id.mediaUsername);
         }
     }
 }

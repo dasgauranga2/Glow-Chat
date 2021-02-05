@@ -15,6 +15,7 @@ import android.util.Log;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -36,6 +37,7 @@ public class MediaActivity extends AppCompatActivity {
     String current_user;
     RecyclerView recyclerView;
     ArrayList<Bitmap> images;
+    ArrayList<String> image_names;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,23 +59,22 @@ public class MediaActivity extends AppCompatActivity {
                     @Override
                     public void onSuccess(ListResult listResult) {
                         images = new ArrayList<Bitmap>();
+                        image_names = new ArrayList<>();
                         // list of database references
                         // each database reference refers to one image file
                         List<StorageReference> items = listResult.getItems();
                         // iterate over the list
                         for (StorageReference item : items) {
                             // get the image in byte array format
-                            item.getBytes(1024*1024).addOnSuccessListener(new OnSuccessListener<byte[]>() {
+                            item.getBytes(5000000).addOnSuccessListener(new OnSuccessListener<byte[]>() {
                                 @Override
                                 public void onSuccess(byte[] bytes) {
                                     // create a bitmap image
                                     Bitmap bitmap = BitmapFactory.decodeByteArray(bytes,0,bytes.length);
                                     images.add(bitmap);
+                                    image_names.add(item.getName());
 
                                     setup_list();
-//                                    if (images.size() == items.size()) {
-//                                        setup_list();
-//                                    }
                                 }
                             });
                         }
@@ -89,7 +90,7 @@ public class MediaActivity extends AppCompatActivity {
 
     // setup the recycler view
     public void setup_list() {
-        MediaAdapter mediaAdapter = new MediaAdapter(this, images);
+        MediaAdapter mediaAdapter = new MediaAdapter(this, images, image_names);
         recyclerView.setAdapter(mediaAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
     }

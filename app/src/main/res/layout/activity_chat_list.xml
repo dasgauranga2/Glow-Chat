@@ -56,10 +56,10 @@
             android:layout_weight="1"
             android:background="@android:color/transparent"
             android:onClick="view_media"
-            android:paddingLeft="16sp"
-            android:paddingTop="22sp"
-            android:paddingRight="16sp"
-            android:paddingBottom="22sp"
+            android:paddingLeft="18sp"
+            android:paddingTop="24sp"
+            android:paddingRight="18sp"
+            android:paddingBottom="24sp"
             android:scaleType="fitXY"
             app:srcCompat="@drawable/media" />
 
@@ -70,10 +70,10 @@
             android:layout_weight="1"
             android:background="@android:color/transparent"
             android:onClick="add_contact"
-            android:paddingLeft="16sp"
-            android:paddingTop="22sp"
-            android:paddingRight="16sp"
-            android:paddingBottom="22sp"
+            android:paddingLeft="18sp"
+            android:paddingTop="24sp"
+            android:paddingRight="18sp"
+            android:paddingBottom="24sp"
             android:scaleType="fitXY"
             app:srcCompat="@drawable/add" />
 
@@ -84,10 +84,10 @@
             android:layout_weight="1"
             android:background="@android:color/transparent"
             android:onClick="edit_profile"
-            android:paddingLeft="16sp"
-            android:paddingTop="22sp"
-            android:paddingRight="16sp"
-            android:paddingBottom="22sp"
+            android:paddingLeft="18sp"
+            android:paddingTop="24sp"
+            android:paddingRight="18sp"
+            android:paddingBottom="24sp"
             android:scaleType="fitXY"
             app:srcCompat="@drawable/profile" />
 
@@ -100,7 +100,7 @@
         android:background="#A0E147"
         android:fontFamily="@font/menlo_bold"
         android:gravity="center"
-        android:letterSpacing="0.15"
+        android:letterSpacing="0.12"
         android:paddingTop="20sp"
         android:text="GLOWCHAT"
         android:textColor="@android:color/white"
