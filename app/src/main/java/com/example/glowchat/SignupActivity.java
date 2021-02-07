@@ -14,6 +14,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -84,12 +85,14 @@ public class SignupActivity extends AppCompatActivity {
                         Toast.makeText(SignupActivity.this, "Password must contain both letters and numbers", Toast.LENGTH_SHORT).show();
                     } // register the user
                     else {
-                        String username = email_text.split("@")[0];
-                        FirebaseFirestore db = FirebaseFirestore.getInstance();
-                        Map<String,Object> user_info = new HashMap<>();
-                        user_info.put("Username",username);
-                        db.collection("USER INFO").document(email_text).set(user_info);
+//                        String username = email_text.split("@")[0];
+//                        FirebaseFirestore db = FirebaseFirestore.getInstance();
+//                        Map<String,Object> user_info = new HashMap<>();
+//                        user_info.put("Username",username);
+//                        db.collection("USER INFO").document(email_text).set(user_info);
 
+                        set_username(email_text);
+                        set_avatar(email_text);
                         register_user(email_text,password_text);
 
                         Intent intent = new Intent(SignupActivity.this, MainActivity.class);
@@ -120,5 +123,25 @@ public class SignupActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    // set the default username of the user
+    public void set_username(String email) {
+
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference username_ref = database.getReference("USERNAMES");
+        String default_un = email.split("@")[0];
+        username_ref.child(default_un).setValue(default_un);
+        //Toast.makeText(SignupActivity.this, "DEFAULT USERNAME SET", Toast.LENGTH_SHORT).show();
+    }
+
+    // set the default avatar of the user
+    public void set_avatar(String email) {
+
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference avatar_ref = database.getReference("AVATARS");
+        String default_un = email.split("@")[0];
+        avatar_ref.child(default_un).setValue("default_avatar");
+        //Toast.makeText(SignupActivity.this, "DEFAULT USERNAME SET", Toast.LENGTH_SHORT).show();
     }
 }
