@@ -85,12 +85,6 @@ public class SignupActivity extends AppCompatActivity {
                         Toast.makeText(SignupActivity.this, "Password must contain both letters and numbers", Toast.LENGTH_SHORT).show();
                     } // register the user
                     else {
-//                        String username = email_text.split("@")[0];
-//                        FirebaseFirestore db = FirebaseFirestore.getInstance();
-//                        Map<String,Object> user_info = new HashMap<>();
-//                        user_info.put("Username",username);
-//                        db.collection("USER INFO").document(email_text).set(user_info);
-
                         set_username(email_text);
                         set_avatar(email_text);
                         register_user(email_text,password_text);

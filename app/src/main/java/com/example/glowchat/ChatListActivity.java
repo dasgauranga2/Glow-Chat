@@ -46,6 +46,7 @@ public class ChatListActivity extends AppCompatActivity {
     // add new contact
     public void add_contact(View view) {
         Intent intent = new Intent(ChatListActivity.this, AddContactActivity.class);
+        intent.putExtra("current_user_contacts", emails);
         startActivity(intent);
     }
 
