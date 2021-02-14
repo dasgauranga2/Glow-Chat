@@ -9,7 +9,8 @@
         android:roundIcon="@mipmap/wechat_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MaterialComponents.Light.NoActionBar">
-        <activity android:name=".MediaActivity"></activity>
+        <activity android:name=".MediaDetailActivity"></activity>
+        <activity android:name=".MediaActivity" />
         <activity android:name=".AvatarActivity" />
         <activity android:name=".ViewProfileActivity" />
         <activity android:name=".ProfileActivity" />
